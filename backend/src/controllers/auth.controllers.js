@@ -1,4 +1,4 @@
-import bcrypt, { genSalt } from "bcryptjs";
+import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import { generateToken } from "../lib/utils.js";
 import cloudinary from "../lib/cloudinary.js";
@@ -12,20 +12,22 @@ export const signup = async (req, res) => {
   try {
     // validating data from frontend
     if (fullName.length < 3) {
-      return res.status(403).json({ error: "Fullname must be 3 letters long" });
+      return res
+        .status(403)
+        .json({ message: "Fullname must be 3 letters long" });
     }
 
     if (!email.length) {
-      return res.status(403).json({ error: "Enter Email" });
+      return res.status(403).json({ message: "Enter Email" });
     }
 
     if (!emailRegex.test(email)) {
-      return res.status(403).json({ error: "Email is invalid" });
+      return res.status(403).json({ message: "Email is invalid" });
     }
 
     if (!passwordRegex.test(password)) {
       return res.status(403).json({
-        error:
+        message:
           "Password should be 6 to 20 characters long with a numeric, 1 lowercase and 1 uppercase letters",
       });
     }
