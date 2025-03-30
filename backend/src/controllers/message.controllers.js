@@ -45,12 +45,12 @@ export const sendMessages = async (req, res) => {
       imageUrl = uploadResponse.secure_url;
     }
 
-    const newMessage = {
+    const newMessage = new Message({
       senderId,
       receiverId,
       text,
       image: imageUrl,
-    };
+    });
     await newMessage.save();
 
     // Realtime functionality
