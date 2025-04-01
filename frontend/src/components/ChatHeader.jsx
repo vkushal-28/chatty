@@ -6,7 +6,6 @@ const ChatHeader = () => {
   const { selectedUser, setSelectedUser } = useChatStore();
   const { onlineUsers } = useAuthStore();
 
-  console.log(onlineUsers.includes(selectedUser._id));
   return (
     <div className="p-2.5 border-b border-base-300">
       <div className="flex items-center justify-between">
