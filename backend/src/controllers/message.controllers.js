@@ -16,17 +16,63 @@ export const getUsersForSidebar = async (req, res) => {
   }
 };
 
+// export const getMessages = async (req, res) => {
+//   try {
+//     const { id: userToChatId } = req.params;
+//     const myId = req.user._id;
+//     const messages = await Message.find({
+//       $or: [
+//         { senderId: myId, receiverId: userToChatId },
+//         { senderId: userToChatId, receiverId: myId },
+//       ],
+//     }).select("-password");
+//     return res.status(200).json(messages);
+//   } catch (error) {
+//     console.log("Error in getMessages controller", error.message);
+//     return res.status(500).json({ message: "Internal Server Error" });
+//   }
+// };
+
 export const getMessages = async (req, res) => {
   try {
     const { id: userToChatId } = req.params;
     const myId = req.user._id;
+
+    // Get pagination parameters from query string, defaulting to page 1 and 10 messages per page
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
     const messages = await Message.find({
       $or: [
         { senderId: myId, receiverId: userToChatId },
         { senderId: userToChatId, receiverId: myId },
       ],
-    }).select("-password");
-    return res.status(200).json(messages);
+    })
+      .sort({ createdAt: -1 }) // latest messages first
+      .skip(skip)
+      .limit(limit)
+      .select("-password");
+
+    const totalMessages = await Message.countDocuments({
+      $or: [
+        { senderId: myId, receiverId: userToChatId },
+        { senderId: userToChatId, receiverId: myId },
+      ],
+    });
+
+    const totalPages = Math.ceil(totalMessages / limit);
+
+    return res.status(200).json({
+      messages,
+      pagination: {
+        totalMessages,
+        totalPages,
+        currentPage: page,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
+    });
   } catch (error) {
     console.log("Error in getMessages controller", error.message);
     return res.status(500).json({ message: "Internal Server Error" });
