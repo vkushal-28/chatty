@@ -1,57 +1,86 @@
+import { format, isToday, isYesterday, isThisWeek, parseISO } from "date-fns";
+
+export const formatDateGroupLabel = (date) => {
+  if (isToday(date)) return "Today";
+  if (isYesterday(date)) return "Yesterday";
+  if (isThisWeek(date, { weekStartsOn: 1 })) return format(date, "EEEE"); // e.g., Monday
+  return format(date, "dd MMM yyyy");
+};
 export function formatMessageTime(date) {
   return new Date(date).toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
-    hour12: false,
+    hour12: true,
   });
 }
 
-export function formatMessageDate(date) {
-  return new Date(date).toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+export function groupMessagesByDate(messages) {
+  const groups = {};
+
+  messages.forEach((msg) => {
+    const date = parseISO(msg.createdAt);
+
+    let label;
+    if (isToday(date)) {
+      label = "Today";
+    } else if (isYesterday(date)) {
+      label = "Yesterday";
+    } else if (isThisWeek(date)) {
+      label = format(date, "EEEE"); // Monday, Tuesday, etc.
+    } else {
+      label = format(date, "MMMM d, yyyy"); // e.g., March 25, 2025
+    }
+
+    if (!groups[label]) {
+      groups[label] = [];
+    }
+    groups[label].push(msg);
   });
-}
 
-export function compareDate(date1, date2) {
-  const d1 = formatMessageDate(date1);
-  const d2 = formatMessageDate(date2);
-  // console.log(d1 < d2);
-  if (d1 !== d2) {
-    return formatDateForChat(d1);
-  }
-}
+  // Sort groups by date descending
+  const sortedGroupKeys = Object.keys(groups).sort((a, b) => {
+    const getDateFromLabel = (label) => {
+      if (label === "Today") return new Date();
+      if (label === "Yesterday") return new Date(Date.now() - 86400000);
+      if (
+        [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ].includes(label)
+      ) {
+        const today = new Date();
+        const targetDay = label;
+        const dayIndex = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ].indexOf(targetDay);
+        const daysAgo = (today.getDay() - dayIndex + 7) % 7;
+        return new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() - daysAgo
+        );
+      }
+      return new Date(label);
+    };
 
-export function formatDateForChat(date) {
-  const today = new Date();
-  const inputDate = new Date(date);
-  const diffTime = today - inputDate;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return getDateFromLabel(b).getTime() - getDateFromLabel(a).getTime();
+  });
 
-  // Check if the date is today
-  if (diffDays === 0) {
-    return "Today";
-  }
+  const sortedGroups = {};
+  sortedGroupKeys.forEach((key) => {
+    sortedGroups[key] = groups[key];
+  });
 
-  // Check if the date is yesterday
-  if (diffDays === 1) {
-    return "Yesterday";
-  }
-
-  // Check if the date is within the last week (7 days)
-  if (diffDays < 7) {
-    const weekday = inputDate.toLocaleString("en-US", { weekday: "long" });
-    return weekday;
-  }
-
-  // If more than a week ago, show the full date in the format 'Monday, 7 Feb, 2025'
-  const options = {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    // year: "numeric",
-  };
-  return inputDate.toLocaleDateString("en-US", options);
+  return sortedGroups;
 }
