@@ -28,10 +28,10 @@ const Sidebar = () => {
   if (isUsersLoading) return <SidebarSkeleton />;
 
   return (
-    <aside className="h-full w-20 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
-      <div className="border-b border-base-300 w-full p-5">
-        <div className="flex items-center gap-2">
-          <Users className="size-6" />
+    <aside className="h-full w-18 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
+      <div className="border-b border-base-300 w-full p-5 max-md:p-2">
+        <div className="flex items-center max-sm:justify-center gap-2">
+          <Users className="size-6 max-sm:size-5" />
           <span className="font-medium hidden lg:block">Contacts</span>
         </div>
         {/* TODO: Online filter toggle */}
@@ -61,7 +61,7 @@ const Sidebar = () => {
               resetMessages();
             }}
             className={`
-              w-full p-3 flex items-center gap-3
+              w-full px-3 py-2 flex items-center gap-3
               hover:bg-base-300 transition-colors
               ${
                 selectedUser?._id === user._id
@@ -73,7 +73,7 @@ const Sidebar = () => {
               <img
                 src={user.profilePic || "/avatar.png"}
                 alt={user.name}
-                className="size-12 object-cover rounded-full"
+                className="size-12 max-sm:size-10 object-cover rounded-full"
               />
               {onlineUsers.includes(user._id) && (
                 <span

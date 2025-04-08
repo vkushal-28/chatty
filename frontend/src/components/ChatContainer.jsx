@@ -21,6 +21,7 @@ const ChatContainer = () => {
   const { authUser } = useAuthStore();
 
   const messageEndRef = useRef(null);
+  const sendRef = useRef(null);
 
   // Load messages on component mount
   useEffect(() => {
@@ -45,10 +46,10 @@ const ChatContainer = () => {
 
   // Scroll to the bottom whenever messages change
   useEffect(() => {
-    if (messageEndRef.current && messages) {
+    if ((messageEndRef.current && messages) || sendMessage) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages]);
+  }, [messages, sendMessage]);
 
   if (
     isMessagesLoading &&
@@ -64,77 +65,6 @@ const ChatContainer = () => {
     );
   }
 
-  // function groupMessagesByDate(messages) {
-  //   const groups = {};
-
-  //   messages.forEach((msg) => {
-  //     const date = parseISO(msg.createdAt);
-
-  //     let label;
-  //     if (isToday(date)) {
-  //       label = "Today";
-  //     } else if (isYesterday(date)) {
-  //       label = "Yesterday";
-  //     } else if (isThisWeek(date)) {
-  //       label = format(date, "EEEE"); // Monday, Tuesday, etc.
-  //     } else {
-  //       label = format(date, "MMMM d, yyyy"); // e.g., March 25, 2025
-  //     }
-
-  //     if (!groups[label]) {
-  //       groups[label] = [];
-  //     }
-  //     groups[label].push(msg);
-  //   });
-
-  //   // Sort groups by date descending
-  //   const sortedGroupKeys = Object.keys(groups).sort((a, b) => {
-  //     const getDateFromLabel = (label) => {
-  //       if (label === "Today") return new Date();
-  //       if (label === "Yesterday") return new Date(Date.now() - 86400000);
-  //       if (
-  //         [
-  //           "Monday",
-  //           "Tuesday",
-  //           "Wednesday",
-  //           "Thursday",
-  //           "Friday",
-  //           "Saturday",
-  //           "Sunday",
-  //         ].includes(label)
-  //       ) {
-  //         const today = new Date();
-  //         const targetDay = label;
-  //         const dayIndex = [
-  //           "Sunday",
-  //           "Monday",
-  //           "Tuesday",
-  //           "Wednesday",
-  //           "Thursday",
-  //           "Friday",
-  //           "Saturday",
-  //         ].indexOf(targetDay);
-  //         const daysAgo = (today.getDay() - dayIndex + 7) % 7;
-  //         return new Date(
-  //           today.getFullYear(),
-  //           today.getMonth(),
-  //           today.getDate() - daysAgo
-  //         );
-  //       }
-  //       return new Date(label);
-  //     };
-
-  //     return getDateFromLabel(b).getTime() - getDateFromLabel(a).getTime();
-  //   });
-
-  //   const sortedGroups = {};
-  //   sortedGroupKeys.forEach((key) => {
-  //     sortedGroups[key] = groups[key];
-  //   });
-
-  //   return sortedGroups;
-  // }
-
   const groupedMessages = groupMessagesByDate(messages);
   const groupedMessagesArray = Object.entries(groupedMessages).map(
     ([label, messages]) => ({
@@ -146,6 +76,10 @@ const ChatContainer = () => {
   );
   // .sort((a, b) => new Date(b.sortDate) - new Date(a.sortDate)); // oldest to
 
+  const onsendClick = () => {
+    console.log("Click");
+    sendRef.current.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
@@ -227,16 +161,16 @@ const ChatContainer = () => {
                         className="sm:max-w-[200px] min-w-[200px] rounded-md mb-2"
                       />
                     )}
-                    {message.text && <p>{message.text}</p>}
+                    {message.text && <div className="pl-1">{message.text}</div>}
                   </div>
                 </div>
               ))}
             </div>
           ))}
+          <div ref={sendRef} />
         </InfiniteScroll>
       </div>
-
-      <MessageInput onSendMessage={sendMessage} />
+      <MessageInput sendRef={sendRef} />
     </div>
   );
 };

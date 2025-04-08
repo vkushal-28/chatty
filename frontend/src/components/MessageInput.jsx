@@ -3,7 +3,7 @@ import { useChatStore } from "../store/useChatStore";
 import { Image, SendHorizonalIcon, X } from "lucide-react";
 import toast from "react-hot-toast";
 
-const MessageInput = () => {
+const MessageInput = ({ sendRef }) => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
@@ -33,15 +33,25 @@ const MessageInput = () => {
     if (!text.trim() && !imagePreview) return;
 
     try {
+      // Send message
       await sendMessage({
         text: text.trim(),
         image: imagePreview,
       });
 
-      // Clear form
+      // Clear form after sending message
       setText("");
       setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
+
+      // Scroll to the bottom after the message has been sent
+      if (sendRef.current) {
+        console.log(sendRef.current);
+        sendRef.current.scrollIntoView({
+          behavior: "auto",
+          block: "end",
+        });
+      }
     } catch (error) {
       console.error("Failed to send message:", error);
     }
@@ -103,4 +113,5 @@ const MessageInput = () => {
     </div>
   );
 };
+
 export default MessageInput;

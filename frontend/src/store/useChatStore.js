@@ -33,7 +33,7 @@ export const useChatStore = create((set, get) => ({
   },
 
   // Modify the getMessages function to append messages
-  getMessages: async ({ userId, page = 1, limit = 10 }) => {
+  getMessages: async ({ userId, page = 1, limit = 25 }) => {
     set({ isMessagesLoading: true });
 
     try {
