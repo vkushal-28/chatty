@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
-import { Image, SendHorizonalIcon, X } from "lucide-react";
+import { X } from "lucide-react";
+import { MdSend } from "react-icons/md";
+import { FaImage } from "react-icons/fa6";
+
 import toast from "react-hot-toast";
 
 const MessageInput = ({ sendRef }) => {
@@ -58,7 +61,7 @@ const MessageInput = ({ sendRef }) => {
   };
 
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 w-full ">
       {imagePreview && (
         <div className="mb-3 flex items-center gap-2">
           <div className="relative">
@@ -82,7 +85,7 @@ const MessageInput = ({ sendRef }) => {
         <div className="flex-1 flex gap-2">
           <input
             type="text"
-            className="w-full input input-bordered rounded-lg  sm:input-md"
+            className="w-full input input-bordered input-sm rounded-lg focus:outline-0 sm:input-md"
             placeholder="Type a message..."
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -100,14 +103,14 @@ const MessageInput = ({ sendRef }) => {
             className={`hidden sm:flex btn btn-circle
                      ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current?.click()}>
-            <Image size={20} />
+            <FaImage size={18} />
           </button>
         </div>
         <button
           type="submit"
-          className="btn btn-sm bg-primary btn-circle p-1"
+          className="btn bg-primary btn-circle p-2"
           disabled={!text.trim() && !imagePreview}>
-          <SendHorizonalIcon size={20} />
+          <MdSend size={20} />
         </button>
       </form>
     </div>

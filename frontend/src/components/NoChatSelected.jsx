@@ -1,5 +1,5 @@
-import { MessageSquare } from "lucide-react";
 import React from "react";
+import { HiMiniChatBubbleLeft } from "react-icons/hi2";
 
 const NoChatSelected = () => {
   return (
@@ -11,7 +11,7 @@ const NoChatSelected = () => {
             <div
               className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center
              justify-center animate-bounce">
-              <MessageSquare className="w-8 h-8 text-primary " />
+              <HiMiniChatBubbleLeft className="w-8 h-8 text-primary " />
             </div>
           </div>
         </div>

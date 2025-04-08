@@ -1,14 +1,10 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import {
-  Eye,
-  EyeOff,
-  Loader2,
-  Lock,
-  Mail,
-  MessageSquare,
-  User,
-} from "lucide-react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { MdAlternateEmail, MdLockOutline } from "react-icons/md";
+import { AiOutlineUser } from "react-icons/ai";
+import { BiLoaderAlt } from "react-icons/bi";
+import { HiMiniChatBubbleLeft } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
 import toast from "react-hot-toast";
@@ -54,7 +50,7 @@ const SignUpPage = () => {
               <div
                 className="size-12 rounded-xl bg-primary/10 flex items-center justify-center 
               group-hover:bg-primary/20 transition-colors">
-                <MessageSquare className="size-6 text-primary" />
+                <HiMiniChatBubbleLeft className="size-6 text-primary" />
               </div>
               <h1 className="text-2xl font-bold mt-2">Create Account</h1>
               <p className="text-base-content/60">
@@ -70,7 +66,7 @@ const SignUpPage = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="size-5 text-base-content/40 z-10" />
+                  <AiOutlineUser className="size-5 text-base-content/40 z-10" />
                 </div>
                 <input
                   type="text"
@@ -90,7 +86,7 @@ const SignUpPage = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="size-5 text-base-content/40 z-10" />
+                  <MdAlternateEmail className="size-5 text-base-content/40 z-10" />
                 </div>
                 <input
                   type="email"
@@ -110,7 +106,7 @@ const SignUpPage = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="size-5 text-base-content/40 z-10" />
+                  <MdLockOutline className="size-5 text-base-content/40 z-10" />
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -126,9 +122,9 @@ const SignUpPage = () => {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? (
-                    <EyeOff className="size-5 text-base-content/40" />
+                    <FaRegEyeSlash className="size-5 text-base-content/40" />
                   ) : (
-                    <Eye className="size-5 text-base-content/40" />
+                    <FaRegEye className="size-5 text-base-content/40" />
                   )}
                 </button>
               </div>
@@ -140,7 +136,7 @@ const SignUpPage = () => {
               disabled={isSigningUp}>
               {isSigningUp ? (
                 <>
-                  <Loader2 className="size-5 animate-spin" />
+                  <BiLoaderAlt className="size-5 animate-spin" />
                   Loading...
                 </>
               ) : (

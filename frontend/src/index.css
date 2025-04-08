@@ -2,3 +2,7 @@
 @plugin "daisyui" {
   themes: all;
 }
+
+input:focus {
+  outline: 0;
+}

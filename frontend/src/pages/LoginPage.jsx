@@ -2,13 +2,16 @@ import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
-import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare } from "lucide-react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { MdAlternateEmail, MdLockOutline } from "react-icons/md";
+import { BiLoaderAlt } from "react-icons/bi";
+import { HiMiniChatBubbleLeft } from "react-icons/hi2";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    email: "john@gmail.com",
-    password: "John@123",
+    email: "",
+    password: "",
   });
   const { login, isLoggingIn } = useAuthStore();
 
@@ -28,7 +31,7 @@ const LoginPage = () => {
               <div
                 className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20
               transition-colors">
-                <MessageSquare className="w-6 h-6 text-primary" />
+                <HiMiniChatBubbleLeft className="w-6 h-6 text-primary" />
               </div>
               <h1 className="text-2xl font-bold mt-2">Welcome Back</h1>
               <p className="text-base-content/60">Sign in to your account</p>
@@ -43,7 +46,7 @@ const LoginPage = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-base-content/40" />
+                  <MdAlternateEmail className="h-4 w-4 text-base-content/40 z-10" />
                 </div>
                 <input
                   type="email"
@@ -63,7 +66,7 @@ const LoginPage = () => {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-base-content/40" />
+                  <MdLockOutline className="h-4 w-4 text-base-content/40 z-10" />
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -76,12 +79,12 @@ const LoginPage = () => {
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-base-content/40" />
+                    <FaRegEye className="h-4 w-5 text-base-content/40" />
                   ) : (
-                    <Eye className="h-5 w-5 text-base-content/40" />
+                    <FaRegEyeSlash className="h-4 w-5 text-base-content/40" />
                   )}
                 </button>
               </div>
@@ -93,7 +96,7 @@ const LoginPage = () => {
               disabled={isLoggingIn}>
               {isLoggingIn ? (
                 <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
+                  <BiLoaderAlt className="h-5 w-5 animate-spin" />
                   Loading...
                 </>
               ) : (

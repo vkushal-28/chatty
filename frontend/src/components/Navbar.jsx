@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
-import { LogOut, MessageSquare, Settings, User } from "lucide-react";
+import { LogOut } from "lucide-react";
+import { IoMdSettings } from "react-icons/io";
+
+import { FaUser } from "react-icons/fa";
+import { HiMiniChatBubbleLeft } from "react-icons/hi2";
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
@@ -16,7 +20,7 @@ const Navbar = () => {
               to="/"
               className="flex items-center gap-2.5 hover:opacity-80 transition-all">
               <div className="size-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                <MessageSquare className="w-5 h-5 text-primary" />
+                <HiMiniChatBubbleLeft className="w-5 h-5 text-primary" />
               </div>
               <h1 className="text-lg font-bold">Chatty</h1>
             </Link>
@@ -29,14 +33,14 @@ const Navbar = () => {
               btn btn-sm gap-2 transition-colors
               
               `}>
-              <Settings className="w-4 h-4" />
+              <IoMdSettings className="w-4 h-4" />
               <span className="hidden sm:inline">Settings</span>
             </Link>
 
             {authUser && (
               <>
                 <Link to={"/profile"} className={`btn btn-sm gap-2`}>
-                  <User className="size-5" />
+                  <FaUser className="size-3" />
                   <span className="hidden sm:inline">Profile</span>
                 </Link>
 

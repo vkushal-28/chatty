@@ -110,7 +110,7 @@ const ChatContainer = () => {
               {/* Date Header */}
               <div className="sticky top-0 z-10 my-1 flex items-center justify-center bg-transparent">
                 <div className="text-center w-full px-4">
-                  <span className="mx-4 text-xs font-medium badge badge-sm bg-base-300/60 text-base-content/75 px-3 py-0 rounded-full shadow-sm animate-fadeIn">
+                  <span className="mx-4 text-xs font-medium badge badge-sm bg-base-300/60 text-base-content/75 px-3 py-0 rounded-md shadow-sm ">
                     {group.label}
                   </span>
                 </div>
@@ -146,17 +146,17 @@ const ChatContainer = () => {
                   </div>
 
                   <div
-                    className={`chat-bubble flex flex-col p-2 ${
+                    className={`chat-bubble flex flex-col p-1 ${
                       message.senderId === authUser._id && "chat-bubble-primary"
                     }`}>
                     {message.image && (
                       <img
                         src={message.image}
                         alt="Attachment"
-                        className="sm:max-w-[200px] min-w-[200px] rounded-md mb-2"
+                        className="sm:max-w-[200px] min-w-[200px] rounded-md "
                       />
                     )}
-                    {message.text && <div className="pl-1">{message.text}</div>}
+                    {message.text && <div className="px-2">{message.text}</div>}
                   </div>
                 </div>
               ))}
