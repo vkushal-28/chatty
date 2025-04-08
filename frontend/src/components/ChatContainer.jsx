@@ -76,10 +76,6 @@ const ChatContainer = () => {
   );
   // .sort((a, b) => new Date(b.sortDate) - new Date(a.sortDate)); // oldest to
 
-  const onsendClick = () => {
-    console.log("Click");
-    sendRef.current.scrollIntoView({ behavior: "smooth" });
-  };
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
@@ -114,11 +110,9 @@ const ChatContainer = () => {
               {/* Date Header */}
               <div className="sticky top-0 z-10 my-1 flex items-center justify-center bg-transparent">
                 <div className="text-center w-full px-4">
-                  {/* <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div> */}
                   <span className="mx-4 text-xs font-medium badge badge-sm bg-base-300/60 text-base-content/75 px-3 py-0 rounded-full shadow-sm animate-fadeIn">
                     {group.label}
                   </span>
-                  {/* <div className="flex-grow h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div> */}
                 </div>
               </div>
 
@@ -131,6 +125,7 @@ const ChatContainer = () => {
                       ? "chat-end"
                       : "chat-start"
                   }`}>
+                  {/* User image if group message */}
                   {/* <div className="chat-image avatar">
                     <div className="size-10 rounded-full border">
                       <img
