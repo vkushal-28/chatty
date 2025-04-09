@@ -3,7 +3,7 @@ const MessageSkeleton = ({ count }) => {
   const skeletonMessages = Array(count || 6).fill(null);
 
   return (
-    <div className="flex-1 overflow-y-auto p-4 space-y-4">
+    <div className="flex-1 overflow-y-auto p-4 max-md:p-0 space-y-4">
       {skeletonMessages.map((_, idx) => (
         <div
           key={idx}

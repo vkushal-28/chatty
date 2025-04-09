@@ -3,7 +3,7 @@ import { HiMiniChatBubbleLeft } from "react-icons/hi2";
 
 const NoChatSelected = () => {
   return (
-    <div className="w-full flex flex-1 flex-col items-center justify-center p-16 bg-base-100/50">
+    <div className="w-full flex flex-1 flex-col items-center justify-center max-md:p-6 p-16 bg-base-100/50">
       <div className="max-w-md text-center space-y-5">
         {/* Icon Display */}
         <div className="flex justify-center gap-4 mb-4">
@@ -24,12 +24,12 @@ const NoChatSelected = () => {
           Select a conversation from the sidebar to start chatting
         </p>
 
-        <div class="bg-base-200/50 border border-base-content/25 text-base-content/70 p-4 rounded-2xl shadow-sm max-w-xl mx-auto mt-10">
+        <div class="bg-base-200/50 border border-base-content/25 text-base-content/70 p-4 max-md:p-3 rounded-2xl max-md:text-xs shadow-sm max-w-xl mx-auto mt-10">
           <h2 class=" font-semibold mb-2">💬 Want to test live chatting?</h2>
-          <p class="mb-1 text-sm">
+          <p class="mb-1 text-sm  max-md:text-xs">
             You can log in as any of the listed users using the format below:
           </p>
-          <p class="bg-base-300/80 border border-dashed border-base-content/20 rounded-md px-3 py-2 my-2 text-sm">
+          <p class="bg-base-300/80 border border-dashed border-base-content/20 rounded-md px-3 py-2 my-2 text-sm  max-md:text-xs">
             <b>Email:</b> firstname.lastname@example.com
             <br />
             <b>Password:</b> firstname@123

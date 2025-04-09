@@ -28,10 +28,10 @@ const Sidebar = () => {
   if (isUsersLoading) return <SidebarSkeleton />;
 
   return (
-    <aside className="h-full w-18 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
-      <div className="border-b border-base-300 w-full p-5 max-md:p-2">
+    <aside className="h-full lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
+      <div className="border-b border-base-300 w-full p-5">
         <div className="flex items-center max-sm:justify-center gap-2">
-          <ImUsers className="size-6 max-sm:size-5" />
+          <ImUsers className="size-6 max-md:size-5" />
           <span className="font-medium hidden lg:block">Contacts</span>
         </div>
         {/* TODO: Online filter toggle */}
