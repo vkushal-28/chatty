@@ -74,7 +74,10 @@ const SignUpPage = () => {
                   placeholder="John Doe"
                   value={formData.fullName}
                   onChange={(e) =>
-                    setFormData({ ...formData, fullName: e.target.value })
+                    setFormData({
+                      ...formData,
+                      fullName: e.target.value.toLowerCase(),
+                    })
                   }
                 />
               </div>

@@ -100,17 +100,28 @@ const MessageInput = ({ sendRef }) => {
 
           <button
             type="button"
-            className={`hidden sm:flex btn btn-circle
-                     ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+            className={`hidden sm:flex btn btn-circle bg-base-content/12
+                     ${
+                       imagePreview
+                         ? "text-emerald-600"
+                         : "text-base-content/50"
+                     }`}
             onClick={() => fileInputRef.current?.click()}>
-            <FaImage size={18} />
+            <FaImage size={20} />
           </button>
         </div>
         <button
           type="submit"
-          className="btn bg-primary btn-circle p-2"
+          className="btn bg-primary btn-circle pl-1"
           disabled={!text.trim() && !imagePreview}>
-          <MdSend size={20} />
+          <MdSend
+            size={22}
+            className={`${
+              !text.trim() && !imagePreview
+                ? "text-base-content/50"
+                : "text-base-200"
+            }`}
+          />
         </button>
       </form>
     </div>

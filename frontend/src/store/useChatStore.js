@@ -63,7 +63,6 @@ export const useChatStore = create((set, get) => ({
   },
 
   resetMessages: () => {
-    console.log("reset called");
     set({
       messages: [],
       pagination: initialPaginationData,

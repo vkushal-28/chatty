@@ -139,7 +139,7 @@ const ChatContainer = () => {
                     </div>
                   </div> */}
 
-                  <div className="chat-footer mt-1">
+                  <div className="chat-footer mt-0.5">
                     <time className="text-xs opacity-50">
                       {formatMessageTime(message.createdAt)}
                     </time>

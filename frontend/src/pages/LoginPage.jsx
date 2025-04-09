@@ -40,7 +40,7 @@ const LoginPage = () => {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="form-control">
+            <div className="form-control mb-3">
               <label className="label">
                 <span className="label-text font-medium">Email</span>
               </label>
@@ -54,13 +54,19 @@ const LoginPage = () => {
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
+                    setFormData({
+                      ...formData,
+                      email: e.target.value.toLowerCase(),
+                    })
                   }
                 />
               </div>
+              <div className="text-base-content/40 text-xs">
+                <b> Test Email:</b> testuser@example.com
+              </div>
             </div>
 
-            <div className="form-control">
+            <div className="form-control mb-5">
               <label className="label">
                 <span className="label-text font-medium">Password</span>
               </label>
@@ -87,6 +93,9 @@ const LoginPage = () => {
                     <FaRegEyeSlash className="h-4 w-5 text-base-content/40" />
                   )}
                 </button>
+              </div>
+              <div className="text-base-content/40 text-xs">
+                <b> Test Password:</b> Testuser@123
               </div>
             </div>
 
